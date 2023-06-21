@@ -1,112 +1,145 @@
-import Image from 'next/image'
+import Image from 'next/image';
+import Link from 'next/link';
+import VideoIntro from './components/VideoIntro';
+import GradientSeparator from './components/GradientSeparator';
+import ImageSlider3d from './components/ImageSlider3d';
+import { locaciones, temporadas, viajeros } from './appDetails';
 
 export default function Home() {
+
+  //JSX
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
+    <main className={``}>
+      {/* INITIAL SCREEN */}
+      <header className={`w-full h-[100vh] relative`}>
+        <div className={`absolute top-0 left-0 w-full h-full bg-black/40`}></div>
+        <video 
+          className={`w-full h-full object-cover`}
+          autoPlay
+          loop
+          muted
+        >
+          <source src='/videos/rick-and-morty-gift.mp4' type="video/mp4"/>
+          Tu navegador no soporta este video
+        </video>
+        <article className={`absolute bottom-3 lg:bottom-32 flex flex-col gap-3 w-full lg:w-auto`}>
+          <h4 className={`w-full lg:max-w-[380px] py-1.5 text-center lg:text-end text-xl lg:text-2xl tracking-[0.4px] lg:pr-2 font-gilmory gradientBackground lg:mb-3`}>DIVERSION ASEGURADA</h4>
+          <h3 className={`px-2 lg:px-0 lg:pl-[103px] text-center lg:text-start text-3xl tracking-[0.6px] font-gilmory font-semibold`}>Regresa a las realidades paralelas</h3>
+          <p className={`px-2 lg:px-0 lg:pl-[103px] text-center lg:text-start text-xl font-gilmory font-normal`}>Nuevas aventuras y experimentos, nada parecido</p>
+        </article>
+      </header>
+
+
+
+      {/* INTRODUCTION */}
+      <div className={`w-full flex flex-col gap-12 pt-6 lg:pt-14 px-4 md:px-10 mt-8 justify-center content-center sectionBackground max-w-[1140px] lg:mx-auto lg:my-0`}>
+        <h5 className={`sectionTitle`}>¡WUBBA LUBBA DUB DUB!</h5>
+        <p className={`w-full text-xl leading-6 text-center font-gilmory font-normal md:px-12`}>
+          ¿Dinosaurios? ¿Más clones? ¿Naves espaciales? ¿Drama familiar? Nadie sabe qué deparará a Rick and Morty en esta temporada. Igual alista las maletas, que esas realidades paralelas no se visitarán solas.
         </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+        <VideoIntro />
+      </div>
+      <GradientSeparator />
+
+
+
+      {/* VIAJEROS */}
+      <div className={`md:px-10 max-w-[1140px] lg:mx-auto lg:my-0`}>
+        <h5 className={`sectionTitle mt-3 mb-20`}>LOS VIAJEROS</h5>
+        <ul className={`flex flex-nowrap pb-6 overflow-auto customScrollBar mb-28 md:justify-evenly`}>
+          {
+            viajeros.map((viajero) => {
+              return (
+                <li
+                  className={`flex-[0_0_50%] md:flex-none px-4 md:px-0 `}
+                  key={viajero.nombre}
+                >
+                  <Image
+                    className={`w-full md:min-w-[220px]`}
+                    src={viajero.imagen}
+                    alt={`Perfil ${viajero.nombre}`}
+                    width={150}
+                    height={170}
+                  />
+                  <p className={`mt-4 text-center text-base font-medium font-gilmory tracking-[0.15em] text-[#61d718]`}>{viajero.nombre}</p>
+                </li>
+              )
+            })
+          }
+        </ul>
+        <GradientSeparator />
+      </div>
+
+
+
+      {/* TEMPORADAS */}
+      <div className={`w-full p-4 lg:px-9 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[1140px] sm:mx-auto sm:my-0 `}>
+        <h5 className={`sectionTitle mb-12`}>UNA RECORDADITA</h5>
+        <ul className={`w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-9 mb-14`}>
+          {
+            temporadas.map((temporada) => {
+              return (
+                <li
+                  key={temporada.numeroTemporada}
+                >
+                  <Link
+                    className={`w-full`}
+                    href={temporada.slug}
+                  >
+                    <Image 
+                      className={`w-full`}
+                      src={temporada.imagen}
+                      alt={temporada.numeroTemporada}
+                      width={345}
+                      height={200}
+                    />
+                    <h6 className={`w-full mt-4 mb-2 text-start text-2xl font-gilmory font-semibold tracking-[0.42] text-[#9a35ef]`}>
+                      {temporada.numeroTemporada}
+                    </h6>
+                    <p className={`w-full m-0 text-start font-gilmory font-normal text-base tracking-[0.45]`}>
+                      {temporada.descripcion}
+                    </p>
+                  </Link>
+                </li>
+              )
+            })
+          }
+        </ul>
+        <GradientSeparator />
+      </div>
+
+
+
+      {/* IMAGE SLIDER */}
+      <div className={`w-full sectionBackground`}>
+        <div className={`mb-12`}>
+          <h5 className={`sectionTitle`}>FOTITOS DE TODAS LAS REALIDADES</h5>
+          <ImageSlider3d />
         </div>
+        <GradientSeparator />
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      {/* LOCACIONES */}
+      <div className={`w-full px-4 sectionBackground md:max-w-[720px] lg:max-w-[1140px] md:mx-auto md:my-0`}>
+        <h5 className={`sectionTitle mt-3`}>MUCHOS LUGARES POR CONOCER</h5>
+        <ul className={`w-full grid grid-cols-2 lg:grid-cols-4 gap-7 py-14`}>
+          {
+            locaciones.map((locacion) => {
+              return (
+                <li
+                  key={locacion.id}
+                  className={`w-full rounded-md overflow-hidden border-[1px] border-[#5b1ce6] border-solid locationBackground`}
+                > 
+                  <img 
+                    src={locacion.imagen}
+                    alt='Rick & Morty'
+                    className={`object-cover`}
+                  />
+                </li>
+              )
+            })
+          }
+        </ul>
       </div>
     </main>
   )
