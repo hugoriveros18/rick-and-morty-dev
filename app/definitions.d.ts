@@ -1,3 +1,4 @@
+//APP DETAILS
 type Viajero = {
     imagen: string
     nombre: texto
@@ -15,13 +16,17 @@ type SliderImage = {
     id: number
 }
 
-type InfoRespuestaFetch = {
-    count: number
-    pages: number
-    next: string
-    prev: string | null
+
+//GENERALES
+type BotonDePaginacionProps = {
+    paginaActual: number
+    lastPage: number
+    slugBase: string
+    slugBusqueda: string
 }
 
+
+//PERSONAJES
 type StatusPersonaje = 'Alive' | 'Dead' | 'unknown'
 
 type GenderPersonaje = 'Male' | 'Female' | 'Genderless' | 'unknown'
@@ -46,12 +51,55 @@ type Personaje = {
     created: string
 }
 
-type respuestaFetchPersonajes = {
+
+//LOCACIONES
+type Locacion = {
+    id: number
+    name: string
+    type: string
+    dimension: string
+    residents: string[]
+    url: string
+    created: string
+}
+
+
+//RESPUESTA FETCH
+type InfoRespuestaFetch = {
+    count: number
+    pages: number
+    next: string | null
+    prev: string | null
+}
+
+interface RespuestaFetch {
     info: InfoRespuestaFetch
+}
+
+interface respuestaFetchPersonajes extends RespuestaFetch {
     results: Personaje[]
 }
 
-type BotonDePaginacionProps = {
-    paginaActual: number
-    lastPage: number
+interface respuestaFetchLocaciones extends RespuestaFetch {
+    results: Locacion[]
 }
+
+//RESULTADO BUSQUEDA
+type BarraBusquedaProps = {
+    slug: string
+    placeholder: string
+}
+
+interface ResultadoBusqueda {
+    totalResultados: number
+    paginaActual: number
+}
+
+interface ResultadoBusquedaPersonajesProps extends ResultadoBusqueda {
+    personajes: Personaje[]
+}
+
+interface ResultadoBusquedaLocacionesProps extends ResultadoBusqueda {
+    locaciones: Locacion[]
+}
+

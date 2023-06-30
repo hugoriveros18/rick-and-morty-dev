@@ -1,6 +1,7 @@
 import Image from 'next/image';
-import './globals.css';
 import localFont from 'next/font/local';
+import Link from 'next/link';
+import './globals.css';
 
 export const metadata = {
   title: 'Rick And Morty Dev',
@@ -68,7 +69,7 @@ export default function RootLayout({
     <html lang="en" className={`${gilroy.variable} ${street.variable} ${roboto.variable} ${circular.variable}`}>
       <body>
         <header className={`fixed top-0 left-0 z-[999] w-full p-3 bg-[rgba(0,0,0,.3)] transition-[background-color] duration-500 ease-in-out`}>
-          <div className={`lg:pl-4`}>
+          <Link href='/' className={`block lg:pl-4 cursor-pointer`}>
             <Image
               className={`w-[150px] lg:w-[180px]`}
               src='/img/rick-and-morty-logo.png'
@@ -76,7 +77,7 @@ export default function RootLayout({
               width={150}
               height={100}
             />
-          </div>
+          </Link>
         </header>
         {children}
       </body>

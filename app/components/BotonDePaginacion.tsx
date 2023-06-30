@@ -1,10 +1,15 @@
 'use client'
 import { useRouter } from 'next/navigation'
 
-export default function BotonDePaginacion({paginaActual, lastPage}:BotonDePaginacionProps) {
+export default function BotonDePaginacion({
+    paginaActual,
+    lastPage,
+    slugBase,
+    slugBusqueda
+}:BotonDePaginacionProps) {
 
     //ROUTER
-    const router = useRouter()
+    const router = useRouter();
 
     //METODOS
     const handleNavigation = (pagina:number) => {
@@ -12,11 +17,11 @@ export default function BotonDePaginacion({paginaActual, lastPage}:BotonDePagina
         if(pagina < 1 || pagina > lastPage || pagina === paginaActual) return
 
         if(pagina === 1) {
-            router.push(`/personajes`);
+            router.push(slugBase);
             return;
         }
 
-        router.push(`/personajes/pagina/${pagina}`);
+        router.push(`${slugBusqueda}/${pagina}`);
     }
     
     const estadoFlecha = (pagina:number) => {

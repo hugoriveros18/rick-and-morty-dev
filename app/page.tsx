@@ -120,7 +120,7 @@ export default function Home() {
       </div>
 
       {/* LOCACIONES */}
-      <div className={`w-full px-4 sectionBackground md:max-w-[720px] lg:max-w-[1140px] md:mx-auto md:my-0`}>
+      <div className={`w-full px-4 pb-14 sectionBackground md:max-w-[720px] lg:max-w-[1140px] md:mx-auto md:my-0`}>
         <h5 className={`sectionTitle mt-3`}>MUCHOS LUGARES POR CONOCER</h5>
         <ul className={`w-full grid grid-cols-2 lg:grid-cols-4 gap-7 py-14`}>
           {
@@ -140,6 +140,14 @@ export default function Home() {
             })
           }
         </ul>
+        <div className={`w-full flex justify-center`}>
+          <Link 
+              href='/locaciones'
+              className={`px-[15px] py-[10px] text-center font-gilmory text-xl font-semibold transition-colors bg-[#b908f6] hover:bg-[#61d718] rounded-[12px]`}
+          >
+              Ver locaciones
+          </Link>
+        </div>
       </div>
     </main>
   )

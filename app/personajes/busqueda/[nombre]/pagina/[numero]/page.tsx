@@ -3,19 +3,18 @@ import BotonDePaginacion from "@/app/components/BotonDePaginacion";
 import BreadCrumb from "@/app/components/Breadcrumb";
 import ResultadoBusquedaPersonajes from "@/app/components/ResultadoBusquedaPersonajes";
 
-const fetchPersonajes = (pagina:number) => {
-    return fetch(`https://rickandmortyapi.com/api/character/?page=${pagina}`, { cache: 'no-store' })
+const fetchPersonajes = (nombre:string, numero:number) => {
+    return fetch(`https://rickandmortyapi.com/api/character/?page=${numero}&name=${nombre}`, { cache: 'no-store' })
         .then((res) => res.json());
 }
 
-export default async function PaginaResultadoPersonaje({ params }: any) {
+export default async function PaginaResultadoBusquedaPersonaje({ params }: any) {
 
     //NUMERO PAGINA
-    const { numero } = params;
+    const { nombre, numero } = params;
 
     //PERSONAJES
-    const personajes:respuestaFetchPersonajes = await fetchPersonajes(numero);
-
+    const personajes:respuestaFetchPersonajes = await fetchPersonajes(nombre, numero);
 
     //JSX
     return (
@@ -30,6 +29,11 @@ export default async function PaginaResultadoPersonaje({ params }: any) {
                 placeholder="Buscar personaje..."
             />
 
+            {/* TERMINO DE BUSQUEDA */}
+            <div className="w-full px-3 mb-3 sm:px-5 lg:max-w-[1140px] lg:mx-auto ">
+                <p className="w-full font-gilmory text-xl">Resulados encontrados para <span className={`font-semibold`}>'{nombre.replaceAll('%20', ' ')}'</span></p>
+            </div>
+
             {/* RESULTADO PERSONAJES */}
             <ResultadoBusquedaPersonajes
                 personajes={personajes.results}
@@ -41,8 +45,8 @@ export default async function PaginaResultadoPersonaje({ params }: any) {
             <BotonDePaginacion 
                 paginaActual={+numero}
                 lastPage={personajes.info.pages}
-                slugBase="/personajes"
-                slugBusqueda="/personajes/pagina"
+                slugBase={`/personajes/busqueda/${nombre}/pagina/1`}
+                slugBusqueda={`/personajes/busqueda/${nombre}/pagina`}
             />
         </main>
     )
